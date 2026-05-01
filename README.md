@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/hollymg/mypackage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hollymg/mypackage/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of mypackage is to print a personalised greeting from me!
@@ -29,17 +30,21 @@ hello()
 ```
 
     ## 
-    ##  ________________________ 
-    ## < Hello world from Anna! >
-    ##  ------------------------ 
-    ##   \
-    ##    \
+    ##  _________________________ 
+    ## < Hello world from Holly! >
+    ##  ------------------------- 
+    ##               \
+    ##                \
     ## 
-    ##      .-.
-    ##     (o o)
-    ##     | O \
-    ##      \   \
-    ##       `~~~' [nosig]
+    ##         /\_/\         _
+    ##        /``   \       / )
+    ##        |n n   |__   ( (
+    ##       =(Y =.‛`   `\  \ \
+    ##       {`"`        \  ) )
+    ##       {       /    |/ /
+    ##        \\   ,(     / /
+    ##         ) ) /-‛\  ,_.‛
+    ##   jgs  (,(,/ ((,,/
 
 This is a basic example which shows you how to print a personalised
 greeting:
@@ -49,19 +54,54 @@ hello(name = "Lucy Elen")
 ```
 
     ## 
-    ##  ____________________________ 
-    ## < Hello Lucy Elen from Anna! >
-    ##  ---------------------------- 
-    ##          \
-    ##           \
+    ##  _____________________________ 
+    ## < Hello Lucy Elen from Holly! >
+    ##  ----------------------------- 
+    ##                 \
+    ##                  \
     ## 
-    ##             |\___/|
-    ##           ==) ^Y^ (==
-    ##             \  ^  /
-    ##              )=*=(
-    ##             /     \
-    ##             |     |
-    ##            /| | | |\
-    ##            \| | |_|/\
-    ##       jgs  //_// ___/
-    ##                \_)
+    ##                 ,'``.._   ,'``.
+    ##                 :,--._:)\,:,._,.:
+    ##                 :`--,''   :`...';\
+    ##                `,'       `---'  `.
+    ##                /                 :
+    ##               /                   \
+    ##             ,'                     :\.___,-.
+    ##            `...,---'``````-..._    |:       \
+    ##              (                 )   ;:    )   \  _,-.
+    ##               `.              (   //          `'    \
+    ##                :               `.//  )      )     , ;
+    ##              ,-|`.            _,'/       )    ) ,' ,'
+    ##             (  :`.`-..____..=:.-':     .     _,' ,'
+    ##              `,'\ ``--....-)='    `._,  \  ,') _ '``._
+    ##           _.-/ _ `.       (_)      /     )' ; / \ \`-.'
+    ##          `--(   `-:`.     `' ___..'  _,-'   |/   `.)
+    ##              `-. `.`.``-----``--,  .'
+    ##                |/`.\`'        ,','); SSt
+    ##                    `         (/  (/
+
+# Workflow derived from <https://github.com/r-lib/actions/tree/v2/examples>
+
+# Need help debugging build failures? Start at <https://github.com/r-lib/actions#where-to-find-help>
+
+on: push: branches: \[main, master\] pull_request:
+
+name: R-CMD-check.yaml
+
+permissions: read-all
+
+jobs: R-CMD-check: runs-on: ubuntu-latest env: GITHUB_PAT: \${{
+secrets.GITHUB_TOKEN }} R_KEEP_PKG_SOURCE: yes steps: - uses:
+<actions/checkout@v6>
+
+      - uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
